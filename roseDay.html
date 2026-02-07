@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ❤️</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  height:100vh;
+  overflow:hidden;
+  background:radial-gradient(circle at top,#ff5f8a,#2b0010);
+  font-family:'Segoe UI',sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+}
+
+/* AURORA */
+.aurora{
+  position:fixed;
+  inset:-50%;
+  background:
+    radial-gradient(circle at 20% 30%,rgba(255,0,120,.15),transparent 40%),
+    radial-gradient(circle at 80% 70%,rgba(255,120,200,.12),transparent 45%);
+  animation:auroraMove 18s linear infinite;
+  z-index:0;
+}
+@keyframes auroraMove{
+  to{transform:rotate(360deg)}
+}
+
+/* STARS */
+.star{
+  position:absolute;
+  width:2px;height:2px;
+  background:white;
+  opacity:.7;
+  animation:twinkle 3s infinite alternate;
+}
+@keyframes twinkle{
+  from{opacity:.2}
+  to{opacity:1}
+}
+
+/* FLOATING HEARTS */
+.heart{
+  position:absolute;
+  bottom:-40px;
+  font-size:20px;
+  animation:floatUp linear infinite;
+  opacity:.8;
+}
+@keyframes floatUp{
+  to{transform:translateY(-110vh) scale(1.4)}
+}
+
+/* CARD */
+.card{
+  z-index:5;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(15px);
+  border-radius:24px;
+  padding:30px;
+  width:90%;
+  max-width:360px;
+  text-align:center;
+  box-shadow:0 30px 70px rgba(0,0,0,.6);
+  animation:pop 1.2s ease;
+}
+@keyframes pop{
+  from{transform:scale(.6);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+h1{font-size:28px;margin-bottom:10px}
+p{font-size:16px;line-height:1.6}
+
+button{
+  margin-top:22px;
+  padding:14px 32px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#ff2f6e,#ff7aa2);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+/* PETALS */
+.petal{
+  position:absolute;
+  top:-40px;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg)}
+}
+
+/* FIREWORK */
+.firework{
+  position:absolute;
+  width:6px;height:6px;
+  border-radius:50%;
+  animation:explode 1.3s ease-out forwards;
+}
+@keyframes explode{
+  to{transform:scale(22);opacity:0}
+}
+
+/* FINAL STAGE */
+#finalStage{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle,#000,#200);
+  z-index:20;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+/* COUNTDOWN */
+#countdown{
+  font-size:70px;
+  animation:pulse 1s infinite;
+}
+@keyframes pulse{
+  50%{transform:scale(1.15)}
+}
+
+/* STEP TEXT */
+#stepText{
+  font-size:22px;
+  max-width:80%;
+  margin-bottom:20px;
+  display:none;
+}
+.fadeIn{
+  animation:fadeIn 1.2s ease forwards;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* HEARTBEAT */
+.heartbeat{
+  animation:beat .6s infinite;
+}
+@keyframes beat{
+  50%{transform:scale(1.02)}
+}
+
+/* LOVE TEXT */
+.loveText{
+  font-size:48px;
+  font-weight:bold;
+  background:linear-gradient(90deg,#ff9a9e,#fad0c4,#ff9a9e);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 30px rgba(255,160,180,.9);
+  animation:heartbeat 1.4s infinite;
+}
+@keyframes heartbeat{
+  25%,75%{transform:scale(1.15)}
+}
+
+.type{
+  font-size:20px;
+  margin-top:15px;
+  min-height:28px;
+}
+
+/* SPARKLES */
+.sparkle{
+  position:absolute;
+  pointer-events:none;
+  width:6px;height:6px;
+  border-radius:50%;
+  background:radial-gradient(circle,#fff,#ff7aa2);
+  animation:sparkFade .8s ease-out forwards;
+}
+@keyframes sparkFade{
+  to{opacity:0;transform:scale(2)}
+}
+
+/* HEART BURST */
+.burst{
+  position:absolute;
+  font-size:22px;
+  animation:burst 1s ease-out forwards;
+}
+@keyframes burst{
+  to{transform:translateY(-120px) scale(1.6);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div class="aurora"></div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/08/02/audio_5b78e93f70.mp3">
+</audio>
+<audio id="chime">
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4a2f3d9c0f.mp3">
+</audio>
+
+<div class="card" id="mainCard">
+  <h1>🌹 Happy Rose Day 🌹</h1>
+  <p>This rose carries my heart,<br>just for you ❤️</p>
+  <button onclick="startSurprise()">🎁 Tap for Magic</button>
+</div>
+
+<div id="finalStage">
+  <div id="stageText">Wait… feel this moment 💫</div>
+  <div id="countdown" style="display:none;">3</div>
+  <div id="stepText"></div>
+
+  <div id="loveReveal" style="display:none;">
+    <div style="font-size:70px">❤️</div>
+    <div class="loveText">I Love You Roop</div>
+    <div class="type" id="typeText"></div>
+  </div>
+</div>
+
+<script>
+/* STARS */
+for(let i=0;i<90;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+  document.body.appendChild(s);
+}
+
+/* HEARTS */
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=5+Math.random()*4+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),9000);
+},600);
+
+/* PETALS */
+for(let i=0;i<40;i++){
+  let p=document.createElement("div");
+  p.className="petal";
+  p.innerHTML="🌹";
+  p.style.left=Math.random()*100+"vw";
+  p.style.fontSize=18+Math.random()*24+"px";
+  p.style.animationDuration=6+Math.random()*6+"s";
+  document.body.appendChild(p);
+}
+
+/* SPARKLES */
+["mousemove","touchmove"].forEach(ev=>{
+  document.addEventListener(ev,e=>{
+    let x=e.touches?e.touches[0].clientX:e.clientX;
+    let y=e.touches?e.touches[0].clientY:e.clientY;
+    let s=document.createElement("div");
+    s.className="sparkle";
+    s.style.left=x+"px";
+    s.style.top=y+"px";
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),800);
+  });
+});
+
+/* HEART BURST */
+document.addEventListener("click",e=>{
+  for(let i=0;i<6;i++){
+    let b=document.createElement("div");
+    b.className="burst";
+    b.innerHTML="❤️";
+    b.style.left=e.clientX+"px";
+    b.style.top=e.clientY+"px";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),1000);
+  }
+});
+
+/* FIREWORK */
+function firework(){
+  for(let i=0;i<16;i++){
+    let f=document.createElement("div");
+    f.className="firework";
+    f.style.left=50+Math.random()*20+"vw";
+    f.style.top=40+Math.random()*20+"vh";
+    f.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1300);
+  }
+}
+
+/* FLOW */
+function startSurprise(){
+  music.play();
+  mainCard.style.display="none";
+  let fw=setInterval(firework,1200);
+  setTimeout(()=>finalStage.style.display="flex",3500);
+  setTimeout(startCountdown,5200);
+  setTimeout(()=>clearInterval(fw),16000);
+}
+
+/* COUNTDOWN */
+function startCountdown(){
+  let c=3;
+  stageText.style.display="none";
+  countdown.style.display="block";
+  let t=setInterval(()=>{
+    countdown.innerText=c--;
+    if(c<0){
+      clearInterval(t);
+      countdown.style.display="none";
+      showSteps();
+    }
+  },900);
+}
+
+/* STEPS */
+const steps=[
+  "Something beautiful is about to happen 💫",
+  "You are more special than you realize 🌸",
+  "You make my world brighter every day 💕",
+  "My heart feels home when I think of you 💓",
+  "I choose you… today & always 🌹"
+];
+let i=0;
+function showSteps(){
+  stepText.style.display="block";
+  stepText.innerText=steps[i];
+  stepText.className="fadeIn";
+  if(i===3) document.body.classList.add("heartbeat");
+  i++;
+  if(i<steps.length) setTimeout(showSteps,2800);
+  else{
+    setTimeout(()=>{
+      document.body.classList.remove("heartbeat");
+      stepText.style.display="none";
+      revealLove();
+    },3200);
+  }
+}
+
+/* TYPE */
+function typeText(msg){
+  let j=0;
+  let t=setInterval(()=>{
+    typeTextEl.innerText+=msg[j++];
+    if(j>=msg.length) clearInterval(t);
+  },80);
+}
+
+/* FINAL */
+function revealLove(){
+  loveReveal.style.display="block";
+  typeTextEl=document.getElementById("typeText");
+  typeText("Forever & Always 🌹 You are my heart.");
+  chime.play();
+  firework();
+  setInterval(firework,1500);
+
+  for(let r=0;r<30;r++){
+    let p=document.createElement("div");
+    p.className="petal";
+    p.innerHTML="🌹";
+    p.style.left=Math.random()*100+"vw";
+    p.style.fontSize=22+Math.random()*30+"px";
+    p.style.animationDuration=4+Math.random()*4+"s";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),9000);
+  }
+}
+
+/* SECRET DOUBLE TAP */
+let lastTap=0;
+document.addEventListener("touchend",()=>{
+  let now=Date.now();
+  if(now-lastTap<300){
+    alert("💌 Secret Message 💌\nYou are my once-in-a-lifetime miracle ❤️");
+  }
+  lastTap=now;
+});
+</script>
+
+</body>
+</html>
