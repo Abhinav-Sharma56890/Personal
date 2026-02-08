@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be Mine, Roop? 💍</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{
+  height:100vh;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at top,#ff78b8,#1a0010),
+    linear-gradient(120deg,#ff5fa2,#2b0015);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+}
+
+/* SOFT GLOW BACKDROP */
+body::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center,rgba(255,255,255,0.08),transparent 60%);
+  animation:pulseBg 6s ease-in-out infinite;
+}
+@keyframes pulseBg{
+  50%{opacity:.6}
+}
+
+/* HEART RAIN */
+.heart{
+  position:absolute;
+  top:-20px;
+  font-size:18px;
+  animation:fall linear infinite;
+  filter:drop-shadow(0 0 6px rgba(255,120,180,.6));
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);opacity:0}
+}
+
+/* CARD */
+.card{
+  position:relative;
+  z-index:10;
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,0.22),
+    rgba(255,255,255,0.08)
+  );
+  backdrop-filter:blur(22px);
+  border-radius:30px;
+  padding:34px;
+  width:90%;
+  max-width:380px;
+  text-align:center;
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.6),
+    inset 0 0 20px rgba(255,255,255,.12);
+  animation:cardFloat 4s ease-in-out infinite;
+}
+@keyframes cardFloat{
+  50%{transform:translateY(-6px)}
+}
+
+/* NAME */
+.name{
+  font-size:32px;
+  font-weight:700;
+  letter-spacing:1px;
+  background:linear-gradient(90deg,#ffd1e8,#fff,#ffd1e8);
+  background-size:300%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shine 3s linear infinite;
+  margin-bottom:14px;
+  text-shadow:0 0 12px rgba(255,180,220,.6);
+}
+@keyframes shine{to{background-position:300%}}
+
+p{
+  opacity:.95;
+  margin:14px 0;
+  line-height:1.6;
+  font-size:15px;
+}
+
+/* BUTTONS */
+button{
+  background:linear-gradient(45deg,#ff2f92,#ff7eb3,#ff2f92);
+  background-size:200%;
+  border:none;
+  color:white;
+  padding:12px 26px;
+  font-size:15px;
+  border-radius:30px;
+  cursor:pointer;
+  box-shadow:
+    0 12px 25px rgba(0,0,0,.35),
+    inset 0 0 10px rgba(255,255,255,.25);
+  transition:.35s;
+  margin:6px;
+}
+button:hover{
+  transform:scale(1.1);
+  background-position:200%;
+}
+
+/* SECTIONS */
+.section{
+  display:none;
+  animation:fadeUp 1.2s ease forwards;
+}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* FIREWORKS */
+.firework{
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  filter:drop-shadow(0 0 10px currentColor);
+  animation:explode 1.5s ease-out forwards;
+}
+@keyframes explode{
+  to{
+    transform:translate(var(--x),var(--y)) scale(.3);
+    opacity:0;
+  }
+}
+
+/* NO BUTTON + THINK AGAIN */
+.noBtn{position:relative}
+.think{
+  display:none;
+  margin-top:8px;
+  font-size:14px;
+  opacity:.9;
+  animation:shake .8s infinite alternate;
+}
+@keyframes shake{
+  from{transform:translateX(-2px)}
+  to{transform:translateX(2px)}
+}
+
+/* PHOTO SURPRISE */
+.photoWrap{
+  display:none;
+  margin-top:18px;
+}
+.photoWrap img{
+  width:100%;
+  border-radius:20px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.6),
+    0 0 25px rgba(255,140,200,.4);
+  animation:photoPop 1.2s ease forwards;
+}
+@keyframes photoPop{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+audio{display:none}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+
+<div class="card">
+  <div class="name">Roop 💖</div>
+  <p>I have something special to ask you…</p>
+  <button onclick="start()">Tap to Reveal 💌</button>
+
+  <div class="section" id="q1">
+    <p>Roop, tum mere liye special ho… pata hai? 🥺</p>
+    <button onclick="next('q1','q2')">Haan 💕</button>
+  </div>
+
+  <div class="section" id="q2">
+    <p>Tum saath hoti ho toh sab kuch theek lagta hai 💫</p>
+    <button onclick="next('q2','q3')">Mujhe bhi 😍</button>
+    <button onclick="next('q2','q3')">Sach mein 💖</button>
+  </div>
+
+  <div class="section" id="q3">
+    <p>
+      Roop, tum saath ho toh sab kuch theek lagta hai —  
+      jaise zindagi ne apni jagah pa li ho ❤️
+    </p>
+    <button onclick="next('q3','q4')">Aww 🥹</button>
+  </div>
+
+  <div class="section" id="q4">
+    <p>💍 Will you be mine forever, Roop?</p>
+    <button onclick="finalYes()">Yes 💖</button>
+    <button class="noBtn" id="noBtn">No 🙈</button>
+    <div class="think" id="think">Think again 😜</div>
+  </div>
+
+  <div class="section" id="final">
+    <h2>🎉 SHE SAID YES 🎉</h2>
+    <p>
+      Roop, you just made my world complete 🌍❤️  
+      I promise to choose you — every single day.
+    </p>
+    <div class="photoWrap" id="photoWrap">
+      <img src="photo.jpg" alt="Us 💖">
+    </div>
+  </div>
+</div>
+
+<script>
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💗";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(14+Math.random()*26)+"px";
+  h.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},180);
+
+function start(){
+  document.querySelector("button").style.display="none";
+  document.getElementById("q1").style.display="block";
+}
+
+function next(c,n){
+  document.getElementById(c).style.display="none";
+  document.getElementById(n).style.display="block";
+}
+
+function fireworks(){
+  for(let i=0;i<70;i++){
+    let f=document.createElement("div");
+    f.className="firework";
+    f.style.left=Math.random()*100+"vw";
+    f.style.top=Math.random()*100+"vh";
+    f.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    f.style.setProperty("--x",(Math.random()*600-300)+"px");
+    f.style.setProperty("--y",(Math.random()*600-300)+"px");
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),1500);
+  }
+}
+
+function finalYes(){
+  document.getElementById("q4").style.display="none";
+  document.getElementById("final").style.display="block";
+  fireworks();fireworks();
+  document.getElementById("photoWrap").style.display="block";
+}
+
+const noBtn=document.getElementById("noBtn");
+const think=document.getElementById("think");
+if(noBtn){
+  noBtn.addEventListener("mouseenter",()=>{
+    noBtn.style.transform=`translate(${Math.random()*120-60}px,${Math.random()*80-40}px)`;
+    think.style.display="block";
+  });
+}
+</script>
+
+</body>
+</html>
