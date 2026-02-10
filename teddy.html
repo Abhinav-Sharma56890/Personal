@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teddy Day for Roop 🧸🤎</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins','Segoe UI',sans-serif}
+
+body{
+  height:100vh;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at top,#c58b5a,#2b170a),
+    linear-gradient(135deg,#8b5a2b,#120803);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+}
+
+/* BACKGROUND GLOW */
+body::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center,rgba(255,255,255,.12),transparent 60%);
+  animation:breath 6s ease-in-out infinite;
+}
+@keyframes breath{50%{opacity:.55}}
+
+/* FLOATING TEDDY */
+.teddy{
+  position:absolute;
+  top:-40px;
+  font-size:22px;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.4));
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(120vh) rotate(360deg);opacity:0}
+}
+
+/* CARD */
+.card{
+  position:relative;
+  z-index:10;
+  background:linear-gradient(160deg,rgba(255,255,255,.28),rgba(255,255,255,.06));
+  backdrop-filter:blur(28px);
+  border-radius:36px;
+  padding:42px 34px;
+  width:92%;
+  max-width:410px;
+  text-align:center;
+  box-shadow:
+    0 50px 120px rgba(0,0,0,.75),
+    inset 0 0 25px rgba(255,255,255,.12);
+  animation:cardFloat 6s ease-in-out infinite;
+}
+@keyframes cardFloat{
+  50%{transform:translateY(-6px)}
+}
+
+/* HEARTBEAT HUG MODE */
+.card.hug{
+  animation:heartbeat 1.6s infinite;
+}
+@keyframes heartbeat{
+  0%{transform:scale(1)}
+  25%{transform:scale(1.02)}
+  40%{transform:scale(1)}
+  60%{transform:scale(1.03)}
+  100%{transform:scale(1)}
+}
+
+/* NAME */
+.name{
+  font-size:36px;
+  font-weight:700;
+  letter-spacing:1px;
+  background:linear-gradient(90deg,#ffe6b8,#fff,#ffe6b8);
+  background-size:300%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shine 3s linear infinite;
+}
+@keyframes shine{to{background-position:300%}}
+
+.whisper{
+  font-size:14px;
+  opacity:.85;
+  margin-top:6px;
+  min-height:18px;
+  transition:.6s;
+}
+
+p{
+  margin:18px 0;
+  font-size:15.5px;
+  line-height:1.75;
+  opacity:.95;
+}
+
+/* BUTTON */
+button{
+  background:linear-gradient(45deg,#6d3f1f,#f1b97a,#6d3f1f);
+  background-size:240%;
+  border:none;
+  color:white;
+  padding:14px 32px;
+  font-size:15px;
+  border-radius:32px;
+  cursor:pointer;
+  margin:8px;
+  transition:.45s;
+  box-shadow:0 12px 25px rgba(0,0,0,.45);
+}
+button:hover{
+  transform:scale(1.14);
+  background-position:240%;
+}
+
+/* SECTIONS */
+.section{display:none;animation:fadeUp 1.2s ease forwards}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(32px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* NO BUTTON */
+.noBtn{position:relative}
+.think{
+  display:none;
+  font-size:14px;
+  opacity:.9;
+  animation:wobble .8s infinite alternate
+}
+@keyframes wobble{
+  from{transform:translateX(-3px)}
+  to{transform:translateX(3px)}
+}
+
+/* CONFETTI */
+.confetti{
+  position:absolute;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  animation:explode 1.5s ease-out forwards;
+}
+@keyframes explode{
+  to{transform:translate(var(--x),var(--y)) scale(.1);opacity:0}
+}
+
+/* PHOTO */
+.photoWrap{
+  display:none;
+  margin-top:24px;
+}
+.photoWrap img{
+  width:100%;
+  border-radius:26px;
+  box-shadow:0 30px 60px rgba(0,0,0,.75);
+  animation:photoPop 1.3s ease forwards;
+}
+@keyframes photoPop{
+  from{transform:scale(.6);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+/* FLOATING LOVE NOTES */
+.note{
+  position:absolute;
+  bottom:-30px;
+  font-size:13px;
+  opacity:.7;
+  animation:floatNote 8s linear forwards;
+}
+@keyframes floatNote{
+  to{transform:translateY(-120vh);opacity:0}
+}
+
+/* PROMISE GLOW */
+.promise{
+  margin-top:18px;
+  padding:12px;
+  border-radius:18px;
+  background:rgba(255,215,160,.12);
+  box-shadow:0 0 40px rgba(255,190,120,.8);
+  font-size:14px;
+  animation:promiseGlow 2.5s ease-in-out infinite;
+}
+@keyframes promiseGlow{
+  50%{box-shadow:0 0 65px rgba(255,210,160,1)}
+}
+
+audio{display:none}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+
+<div class="card">
+  <div class="name">Roop 🧸🤎</div>
+  <div class="whisper" id="whisper"></div>
+
+  <p>Teddy Day feels warmer today… because of you 🫶</p>
+  <button onclick="start()">Hug the Teddy 🧸</button>
+
+  <div class="section" id="q1">
+    <p>Q1 🧸 Tum kis type ke teddy ho?</p>
+    <button onclick="next('q1','q2')">Soft & Cute 🤎</button>
+    <button onclick="next('q1','q2')">Strong & Protective 💪</button>
+  </div>
+
+  <div class="section" id="q2">
+    <p>Q2 💭 Agar main teddy ban jaun…?</p>
+    <button onclick="next('q2','q3')">Roz hug karungi 🫂</button>
+    <button onclick="next('q2','q3')">Kabhi chhodungi nahi 💖</button>
+  </div>
+
+  <div class="section" id="q3">
+    <p>Q3 🤎 Teddy purana ho jaye… par pyaar?</p>
+    <button onclick="next('q3','q4')">Hamesha same 💍</button>
+    <button onclick="next('q3','q4')">Aur strong 😍</button>
+  </div>
+
+  <div class="section" id="q4">
+    <p>Q4 🥺 Agar main thoda sa possessive ho jaun?</p>
+    <button onclick="next('q4','q5')">Cute lagega 🧸</button>
+    <button onclick="next('q4','q5')">Aur pyaar karungi ❤️</button>
+  </div>
+
+  <div class="section" id="q5">
+    <p>Final 🧸❤️ Agar main tumhara forever teddy ban jaun…?</p>
+    <button onclick="finalYes()">Hamesha mere 🤎</button>
+    <button class="noBtn" id="noBtn">Sochna padega 🙈</button>
+    <div class="think" id="think">Galat jawab 😜</div>
+  </div>
+
+  <div class="section" id="final">
+    <h2>🧸 HAPPY TEDDY DAY MY LOVE 🧸</h2>
+    <p>
+      Tum teddy nahi ho… tum meri comfort ho 🤎<br>
+      Jab bhi life hard ho jaaye, tumhara hug kaafi hai 🫂<br>
+      Tum saath ho toh sab easy lagta hai ✨<br>
+      Aaj bhi. Kal bhi. Hamesha sirf tum ❤️
+    </p>
+
+    <div class="promise">
+      💍 This teddy is permanently reserved for you 🤎
+    </div>
+
+    <div class="photoWrap" id="photoWrap">
+      <img src="teddy.jpg" alt="My Teddy 🧸">
+    </div>
+  </div>
+</div>
+
+<script>
+/* TEDDY RAIN */
+setInterval(()=>{
+  let t=document.createElement("div");
+  t.className="teddy";
+  t.innerHTML="🧸";
+  t.style.left=Math.random()*100+"vw";
+  t.style.fontSize=(18+Math.random()*22)+"px";
+  t.style.animationDuration=(4+Math.random()*4)+"s";
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),9000);
+},220);
+
+/* START */
+function start(){
+  document.querySelector("button").style.display="none";
+  document.querySelector(".card").classList.add("hug");
+  document.getElementById("q1").style.display="block";
+}
+
+function next(c,n){
+  document.getElementById(c).style.display="none";
+  document.getElementById(n).style.display="block";
+}
+
+/* CONFETTI */
+function confetti(){
+  for(let i=0;i<90;i++){
+    let c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.top=Math.random()*100+"vh";
+    c.style.background=`hsl(${Math.random()*360},100%,70%)`;
+    c.style.setProperty("--x",(Math.random()*700-350)+"px");
+    c.style.setProperty("--y",(Math.random()*700-350)+"px");
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),1500);
+  }
+}
+
+/* FINAL */
+function finalYes(){
+  document.getElementById("q5").style.display="none";
+  document.getElementById("final").style.display="block";
+  confetti();confetti();
+  document.getElementById("photoWrap").style.display="block";
+}
+
+/* NO BUTTON */
+const noBtn=document.getElementById("noBtn");
+const think=document.getElementById("think");
+noBtn.addEventListener("mouseenter",()=>{
+  noBtn.style.transform=`translate(${Math.random()*140-70}px,${Math.random()*90-45}px)`;
+  think.style.display="block";
+});
+
+/* WHISPERS */
+const whispers=[
+  "You are my safest place 🤎",
+  "My favorite hug is yours 🫂",
+  "Forever feels easy with you ✨",
+  "You feel like home 🧸",
+  "Chosen. Loved. Always 💖"
+];
+let w=0;
+setInterval(()=>{
+  document.getElementById("whisper").textContent=whispers[w%whispers.length];
+  w++;
+},2800);
+
+/* LOVE NOTES */
+const notes=["Mine 🤎","Always you 💖","Home 🫂","Forever 🧸"];
+setInterval(()=>{
+  let n=document.createElement("div");
+  n.className="note";
+  n.innerText=notes[Math.floor(Math.random()*notes.length)];
+  n.style.left=Math.random()*80+10+"vw";
+  document.body.appendChild(n);
+  setTimeout(()=>n.remove(),8000);
+},6000);
+</script>
+
+</body>
+</html>
